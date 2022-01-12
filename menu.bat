@@ -53,14 +53,14 @@ date_time () {
 
 #show_calendar function
 show_calendar () {
-	echo "Would you like to look at the current Date? [y/n]"
+	echo "Would you like to look at the current Date or future Date? [cd/fd]"
 	#assigns users input to the variable cal
 	read cal
 	#if user chooses y then it will get the current date
-	if [ $cal == "y" ]; then	
+	if [ $cal == "cd" ]; then	
 		cal
 	#if the user selects n then it will output the date that the user chooses
-	elif [ $cal == "n" ]; then
+	elif [ $cal == "fd" ]; then
 		echo "Type in the Date that you would like to look at: "
 		echo
 		echo "[month]"
@@ -70,11 +70,11 @@ show_calendar () {
 		#this assigns the second input to the year
 		read year
 		#this places those values at this point to get the specific calendar date that the user chooses.
-		ncal $month $year
+		cal $month $year
 	else
 		echo "Invalid Input"
 		echo
-		main
+		show_calendar
 	fi
 	main 
 }
