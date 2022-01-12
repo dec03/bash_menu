@@ -20,6 +20,9 @@ main () {
 	elif [ $choice == 2 ]; then
 		#calls the show_calendar function
 		show_calendar
+	elif [ $choice == 3 ]; then
+		#calls function to delete a file
+		delete_path
 	elif [ $choice == 4 ]; then
 		#this calls the system configuration menu
 		system_config_menu
