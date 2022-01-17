@@ -84,6 +84,13 @@ show_calendar () {
 
 
 
+#delete path function
+
+
+
+
+
+
 #system config menu
 system_config_menu () {
 	echo
@@ -108,8 +115,6 @@ system_config_menu () {
 		system_config_menu
 	fi
 }
-
-
 
 
 
