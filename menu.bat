@@ -64,16 +64,25 @@ show_calendar () {
 		cal
 	#if the user selects n then it will output the date that the user chooses
 	elif [ $cal == "fd" ]; then
-		echo "Type in the Date that you would like to look at: "
-		echo
-		echo "[month]"
-		#this assigns the first input to the month variable
-		read month 
-		echo "[year]"
-		#this assigns the second input to the year
-		read year
-		#this places those values at this point to get the specific calendar date that the user chooses.
-		cal $month $year
+		
+		echo "Would you like to look at a specific date or a year? [sd/year]"
+		read choice
+		if [ $choice == "sd" ]; then
+			echo "Type in the Date that you would like to look at: "
+			echo
+			echo "[month]"
+			#this assigns the first input to the month variable
+			read month 
+			echo "[year]"
+			#this assigns the second input to the year
+			read year
+			#this places those values at this point to get the specific calendar date that the user chooses.
+			cal $month $year
+		elif [ $choice == "year" ]; then
+			echo "What year?"
+			read year
+			cal $year
+		fi
 	else
 		echo "Invalid Input"
 		echo
@@ -85,9 +94,7 @@ show_calendar () {
 
 
 #delete path function
-delete_path () {
-echo
-}
+
 
 
 
