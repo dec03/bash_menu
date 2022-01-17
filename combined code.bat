@@ -5,41 +5,37 @@
 
 #this is the main function that allows the user to navigate to the different parts of the code
 main(){
-#the choice variable contains the menubox and will assign the input that the user provides to choice
-choice=$(dialog --backtitle "MAIN MENU" \
-#attributes of box
---title "WELCOME TO THE MAIN MENU" \
---menu "Select an Option" 0 0 0 \
-#list of options
-1 "Date/time" \
-2 "Calendar" \
-3 "Delete" \
-4 "System configuration" \
-5 "Exit" --stdout)
- 
-#switch case to allow the user to navigate to the different options
-case $choice in 
-	#calls the date_time
-	1) date_time;;
-	
-	#calls the show_calendar function
-	2) show_calendar;;
+	#the choice variable contains the menubox and will assign the input that the user provides to choice
+	choice=$(dialog --backtitle "MAIN MENU" \
+	--title "WELCOME TO THE MAIN MENU" \
+	--menu "Select an Option" 0 0 0 \
+	1 "Date/time" \
+	2 "Calendar" \
+	3 "Delete" \
+	4 "System configuration" \
+	5 "Exit" --stdout)
+	#above is the attributes of the box with the list of options
+
+
+	#switch case to allow the user to navigate to the different options
+	case $choice in 
+		#calls the date_time
+		1) date_time;;
 		
-		
-	#calls function to delete a file	
-	3) delete_file;;
-		
-	#this calls the system configuration menu	
-	4) system_config_menu;;
+		#calls the show_calendar function
+		2) show_calendar;;
 			
-	#this outputs a info box saying shutting down, and will kill the program in two seconds	
-	5) dialog --infobox "Shutting down..." 0 0 ; sleep 2;;			
-esac
+			
+		#calls function to delete a file	
+		3) delete_file;;
+			
+		#this calls the system configuration menu	
+		4) system_config_menu;;
+				
+		#this outputs a info box saying shutting down, and will kill the program in two seconds	
+		5) dialog --infobox "Shutting down..." 0 0 ; sleep 2;;			
+	esac
 }
-
-
-
-
 
 
 #date_time function
@@ -54,39 +50,39 @@ date_time () {
 
 
 
+#show_calendar function
+show_calendar () {
+	#outputs a calendar that can be interacted with in a dialog box
+	dialog --title "Calendar" --calendar "Use TAB to switch to different areas of the box" 0 0
+	main	
+}
+
+
+#delete file function
+delete_file() {
+	echo
+}
 
 
 #system config menu
 system_config_menu () {
 	#this assigns the users choice from the menu box to the variable choice
 	choice=$(dialog --backtitle "SYSTEM MENU" \
-	#attributes of box
 	--title "WELCOME TO THE SYSTEM CONFIGURATION MENU" \
 	--menu "Select an option" 0 0 0 \
-	#list of options
 	1 "Operating System Type" \
 	2 "CPU" \
 	3 "Memory" \
 	4 "Hard Disk" \
 	5 "File System" \
 	6 "Main menu" --stdout)
+	#above is the attributes of the box with the list of options
 	
 	#switch cases
 	case $choice in
 	6) main
 	esac
 }
-
-
-
-#show_calendar function
-show_calendar () {
-	#outputs a calendar box that can be interacted with
-	dialog --title "Calendar" --calendar "Use TAB to switch to different areas of the box" 0 0
-	main	
-}
-
-
 
 
 main
