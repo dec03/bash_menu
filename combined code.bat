@@ -5,6 +5,7 @@
 
 #this is the main function that allows the user to navigate to the different parts of the code
 main(){
+
 	#the choice variable contains the menubox and will assign the input that the user provides to choice
 	choice=$(dialog --backtitle "MAIN MENU" \
 	--title "WELCOME TO THE MAIN MENU" \
@@ -33,17 +34,17 @@ main(){
 		4) system_config_menu;;
 				
 		#this outputs a info box saying shutting down, and will kill the program in two seconds	
-		5) dialog --infobox "Shutting down..." 0 0 ; sleep 2;;			
-	esac
+		5) dialog --infobox "Shutting down..." 0 0 ; sleep 1;;			
+	esac #closes cases
 }
 
 
 #date_time function
-date_time () {
+date_time() {
 	#this assigns the date to the date_and_time variable
 	date_and_time=$(date)
 	#this prints the date and time as an infobox, so it will only pop up for 2 seconds
-	dialog --infobox "$date_and_time" 0 0 ; sleep 2;
+	dialog --infobox "$date_and_time" 5 35 ; sleep 2;
 	#this goes back to the main function
 	main
 }
@@ -51,7 +52,7 @@ date_time () {
 
 
 #show_calendar function
-show_calendar () {
+show_calendar() {
 	#outputs a calendar that can be interacted with in a dialog box
 	dialog --title "Calendar" --calendar "Use TAB to switch to different areas of the box" 0 0
 	main	
@@ -60,12 +61,30 @@ show_calendar () {
 
 #delete file function
 delete_file() {
-	echo
+	
+	#assigns the path that the user inputs to this variable
+	path=$(dialog --title "Remove File" --inputbox "What is the path?" 10 50 --stdout)
+	#goes to the path that the user has chosen
+	cd $path
+	#this assigns the users input to this variable
+	f=$(dialog --title "Remove File" --inputbox "What file do you want to delete" 10 50 --stdout)
+	
+	if [ -f $f ] 	#if the file is a file
+	then
+		rm $f #removes file
+		dialog --title "Remove File" --infobox "$path \ $f: $f file deleted." 10 50 ; sleep 2 ;
+		#outputs the path of the file and that its been removed
+	else
+		dialog --title "Remove File" --infobox "$f is not a file." 10 50 ; sleep 2 ;
+		#outputs that the user input isnt a file
+	fi 
+	main
 }
 
 
+
 #system config menu
-system_config_menu () {
+system_config_menu() {
 	#this assigns the users choice from the menu box to the variable choice
 	choice=$(dialog --backtitle "SYSTEM MENU" \
 	--title "WELCOME TO THE SYSTEM CONFIGURATION MENU" \
