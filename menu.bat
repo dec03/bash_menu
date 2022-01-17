@@ -85,7 +85,9 @@ show_calendar () {
 
 
 #delete path function
-
+delete_path () {
+echo
+}
 
 
 
