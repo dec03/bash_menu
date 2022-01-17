@@ -9,7 +9,7 @@ main(){
 	#the choice variable contains the menubox and will assign the input that the user provides to choice
 	choice=$(dialog --backtitle "MAIN MENU" \
 	--title "WELCOME TO THE MAIN MENU" \
-	--menu "Select an Option" 0 0 0 \
+	--menu "" 0 0 0 \
 	1 "Date/time" \
 	2 "Calendar" \
 	3 "Delete" \
@@ -34,7 +34,8 @@ main(){
 		4) system_config_menu;;
 				
 		#this outputs a info box saying shutting down, and will kill the program in two seconds	
-		5) dialog --infobox "Shutting down..." 0 0 ; sleep 1;;			
+		5) dialog --infobox "Shutting down..." 0 0 ; sleep 1;;
+					
 	esac #closes cases
 }
 
@@ -88,19 +89,19 @@ system_config_menu() {
 	#this assigns the users choice from the menu box to the variable choice
 	choice=$(dialog --backtitle "SYSTEM MENU" \
 	--title "WELCOME TO THE SYSTEM CONFIGURATION MENU" \
-	--menu "Select an option" 0 0 0 \
+	--menu "" 0 0 0 \
 	1 "Operating System Type" \
 	2 "CPU" \
 	3 "Memory" \
 	4 "Hard Disk" \
-	5 "File System" \
-	6 "Main menu" --stdout)
+	5 "File System" --stdout)
 	#above is the attributes of the box with the list of options
 	
 	#switch cases
 	case $choice in
-	6) main
+	1) echo
 	esac
+	main
 }
 
 
