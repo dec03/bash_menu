@@ -1,11 +1,7 @@
 #!/bin/bash
 
-
-
-
 #this is the main function that allows the user to navigate to the different parts of the code
 main(){
-
 	#the choice variable contains the menubox and will assign the input that the user provides to choice
 	choice=$(dialog --backtitle "MAIN MENU" \
 	--title "WELCOME TO THE MAIN MENU" \
@@ -16,26 +12,18 @@ main(){
 	4 "System configuration" \
 	5 "Exit" --stdout)
 	#above is the attributes of the box with the list of options
-
-
 	#switch case to allow the user to navigate to the different options
 	case $choice in 
 		#calls the date_time
-		1) date_time;;
-		
+		1) date_time;;	
 		#calls the show_calendar function
-		2) show_calendar;;
-			
-			
+		2) show_calendar;;	
 		#calls function to delete a file	
-		3) delete_file;;
-			
+		3) delete_file;;		
 		#this calls the system configuration menu	
-		4) system_config_menu;;
-				
+		4) system_config_menu;;			
 		#this outputs a info box saying shutting down, and will kill the program in two seconds	
-		5) dialog --infobox "Shutting down..." 0 0 ; sleep 1;;
-					
+		5) dialog --infobox "Shutting down..." 0 0 ; sleep 1;;				
 	esac #closes cases
 }
 
@@ -51,7 +39,6 @@ date_time() {
 }
 
 
-
 #show_calendar function
 show_calendar() {
 	#outputs a calendar that can be interacted with in a dialog box
@@ -62,7 +49,6 @@ show_calendar() {
 
 #delete file function
 delete_file() {
-	
 	#assigns the path that the user inputs to this variable
 	path=$(dialog --title "Remove File" --inputbox "What is the path?" 10 50 --stdout)
 	#goes to the path that the user has chosen
@@ -72,16 +58,19 @@ delete_file() {
 	
 	if [ -f $f ] 	#if the file is a file
 	then
-		rm $f #removes file
-		dialog --title "Remove File" --infobox "$path \ $f: $f file deleted." 10 50 ; sleep 2 ;
-		#outputs the path of the file and that its been removed
+		prompt=$(dialog --title "Remove File" --inputbox "Are you sure you want to delete file? [y\n]" 10 50 --stdout)
+		if [ $prompt == "y" ]; then
+			rm $f #removes file
+			dialog --title "Remove File" --infobox "$path \ $f: $f file deleted." 10 50 ; sleep 2 ;
+			#outputs the path of the file and that its been removed
+		elif [ $prompt == "n" ]; then
+			main
 	else
 		dialog --title "Remove File" --infobox "$f is not a file." 10 50 ; sleep 2 ;
 		#outputs that the user input isnt a file
 	fi 
 	main
 }
-
 
 
 #system config menu
@@ -103,6 +92,4 @@ system_config_menu() {
 	esac
 	main
 }
-
-
 main
