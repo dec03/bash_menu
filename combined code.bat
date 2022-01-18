@@ -58,13 +58,14 @@ delete_file() {
 	
 	if [ -f $f ] 	#if the file is a file
 	then
-		prompt=$(dialog --title "Remove File" --inputbox "Are you sure you want to delete file? [y\n]" 10 50 --stdout)
+		prompt=$(dialog --title "Remove File" --inputbox "Are you sure you want to delete file? [y/n]" 10 30 --stdout)
 		if [ $prompt == "y" ]; then
 			rm $f #removes file
-			dialog --title "Remove File" --infobox "$path \ $f: $f file deleted." 10 50 ; sleep 2 ;
-			#outputs the path of the file and that its been removed
+			dialog --title "Remove File" --infobox "$path: $f file deleted." 10 50 ; sleep 2 ;
+			#outputs the path of the file and that its been removed5
 		elif [ $prompt == "n" ]; then
 			main
+		fi
 	else
 		dialog --title "Remove File" --infobox "$f is not a file." 10 50 ; sleep 2 ;
 		#outputs that the user input isnt a file
