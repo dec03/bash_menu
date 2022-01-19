@@ -90,7 +90,6 @@ system_config_menu() {
 	4 "Hard Disk" \
 	5 "File System" --stdout)
 	#above is the attributes of the box with the list of options
-}
 	
 	#switch cases
 	case $choice in
