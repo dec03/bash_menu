@@ -78,6 +78,7 @@ display_result() {
   	dialog --title "$1" \	#first arguement is passed as the title
     --no-collapse \
     --msgbox "$result" 0 0	#result is the thing i keep redefining to pass through commands
+}
 #system config menu
 system_config_menu() {
 	#this assigns the users choice from the menu box to the variable choice
@@ -90,6 +91,7 @@ system_config_menu() {
 	4 "Hard Disk" \
 	5 "File System" --stdout)
 	#above is the attributes of the box with the list of options
+}
 	
 	#switch cases
 	case $choice in
@@ -110,7 +112,7 @@ system_config_menu() {
 	;;
 	3)
 	result=$(cat /proc/meminfo)	#gets memory information from the processes folder
-    	display_result "Your memory information"
+    display_result "Your memory information"
     ;;
     4)
 	result=$(lsblk)		#lsblk is a functo=ion that is used in order to obtain hard disc information without using sudo
