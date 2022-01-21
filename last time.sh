@@ -62,7 +62,7 @@ delete_file() {
 		if [ $prompt == "y" ]; then
 			rm $f #removes file
 			dialog --title "Remove File" --infobox "$path: $f file deleted." 10 50 ; sleep 2 ;
-			#outputs the path of the file and that its been removed5
+			#outputs the path of the file and that its been removed
 		elif [ $prompt == "n" ]; then
 			main
 		fi
@@ -75,9 +75,11 @@ delete_file() {
 
 #results function
 display_result() {
-  	dialog --title "$1" \	#first arguement is passed as the title
-    --no-collapse \
-    --msgbox "$result" 0 0	#result is the thing i keep redefining to pass through commands
+	#first arguement is passed as the title
+  	dialog --title "$1" \
+    	--no-collapse \
+   	--msgbox "$result" 0 0	#result is the thing i keep redefining to pass through commands
+   	system_config_menu
 }
 #system config menu
 system_config_menu() {
@@ -91,36 +93,35 @@ system_config_menu() {
 	4 "Hard Disk" \
 	5 "File System" --stdout)
 	#above is the attributes of the box with the list of options
-}
 	
 	#switch cases
 	case $choice in
 	1) 
 	platform='unknown'
-    unamestr=`uname`	#uname checks the platform type to determine the OS
-    if [[ "$unamestr" == 'Linux' ]]; then
+    	unamestr=`uname`	#uname checks the platform type to determine the OS
+    	if [[ "$unamestr" == 'Linux' ]]; then
    	    platform='linux'
 	elif [[ "$unamestr" == 'FreeBSD' ]]; then
-        platform='freebsd'
+        	platform='freebsd'
 	fi
 	result=$(echo "Your platform is $platform")	#the if statement above checks uname which is built in on linux and free bsd
 	display_result "Here is your platform"
-      ;;
-    2)
+      	;;
+	2)
 	result=$(lscpu)		#gets general cpu information can use cat /proc/cpuinfo for more info on each core
 	display_result "CPU info"
 	;;
 	3)
 	result=$(cat /proc/meminfo)	#gets memory information from the processes folder
-    display_result "Your memory information"
-    ;;
-    4)
+    	display_result "Your memory information"
+   	;;
+	4)
 	result=$(lsblk)		#lsblk is a functo=ion that is used in order to obtain hard disc information without using sudo
 	display_result "Your hard disk information"
 	;;
 	5)
 	result=$(findmnt)		#gets mounted file system information so that you can see the files in a tree like format
-    display_result "Files in a mounted way"
+    	display_result "Files in a mounted way"
 	;;
 	esac
 	main
