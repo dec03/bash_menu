@@ -23,7 +23,7 @@ main(){
 		#this calls the system configuration menu	
 		4) system_config_menu;;			
 		#this outputs a info box saying shutting down, and will kill the program in two seconds	
-		5) dialog --infobox "Shutting down..." 0 0 ; sleep 2;;				
+		5) dialog --infobox "Shutting down..." 0 0 ; sleep 2; exit;				
 	esac #closes cases
 }
 
