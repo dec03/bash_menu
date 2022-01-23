@@ -26,8 +26,6 @@ main(){
 		5) dialog --infobox "Shutting down..." 0 0 ; sleep 2; exit;				
 	esac #closes cases
 }
-
-
 #date_time function
 date_time() {
 	#this assigns the date to the date_and_time variable
@@ -37,31 +35,39 @@ date_time() {
 	#this goes back to the main function
 	main
 }
-
-
 #show_calendar function
 show_calendar() {
 	#outputs a calendar that can be interacted with in a dialog box
 	dialog --title "Calendar" --calendar "Use TAB to switch to different areas of the box" 0 0
 	main	
 }
-
-
 #delete file function
 delete_file() {
+	directory=$(pwd)
+	#outputs the files and folders in current path
+	dialog --title "$directory" --infobox "$(ls)" 10 50 ; sleep 5 ;
 	#assigns the path that the user inputs to this variable
-	path=$(dialog --title "Remove File" --inputbox "What is the path?" 10 50 --stdout)
-	#goes to the path that the user has chosen
-	cd $path
+	path=$(dialog --title "Remove File" --inputbox "What is the path? ['back' to go back, Enter to remove a file]" 10 50 --stdout)
+	if [ $path != "" ]; then
+		#goes to the path that the user has chosen
+		cd $path
+		delete_file
+	elif [ $path == "back" ]; then
+		#this goes back a dir when back is put in
+		cd -
+		delete_file	
+	fi
+	#outputs the files and folders in current path
+	dialog --title "$directory" --infobox "$(ls)" 10 50 ; sleep 5 ;
 	#this assigns the users input to this variable
-	f=$(dialog --title "Remove File" --inputbox "What file do you want to delete" 10 50 --stdout)
-	
+	f=$(dialog --title "Remove File" --inputbox "What file do you want to delete?" 10 50 --stdout)
 	if [ -f $f ] 	#if the file is a file
 	then
 		prompt=$(dialog --title "Remove File" --inputbox "Are you sure you want to delete file? [y/n]" 10 30 --stdout)
 		if [ $prompt == "y" ]; then
 			rm $f #removes file
-			dialog --title "Remove File" --infobox "$path: $f file deleted." 10 50 ; sleep 2 ;
+			directory=$(pwd)
+			dialog --title "Remove File" --infobox "$directory: $f file deleted." 10 50 ; sleep 2 ;
 			#outputs the path of the file and that its been removed
 		elif [ $prompt == "n" ]; then
 			main
@@ -72,7 +78,6 @@ delete_file() {
 	fi 
 	main
 }
-
 #results function
 display_result() {
 	#first arguement is passed as the title
